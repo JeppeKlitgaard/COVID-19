@@ -83,6 +83,11 @@ JHU_RENAMED_COLUMNS = {
 
 JHU_DATE_FILTER = r'^\d+/\d+/\d+$'
 
+POP_DF_RENAMED_COUNTRIES = {
+    'Iran, Islamic Rep.': 'Iran',
+    'United States': 'US'
+}
+
 COUNTIES = {
     "45001":  {"county": "Abbeville",             "state": "South Carolina",        "lat": "34.22333378",  "long": "-82.46170658",  "sub_region": "south_atlantic",      "region": "south"},
     "22001":  {"county": "Acadia",                "state": "Louisiana",             "lat": "30.2950649",   "long": "-92.41419698",  "sub_region": "west_south_central",  "region": "south"},

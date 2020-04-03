@@ -38,12 +38,18 @@ def grab_JHU():
     # Fill in NaN province_state with country index
     df_jhu['province_state'] = df_jhu.province_state.fillna(df_jhu.country)
 
-    # Calculate country sums based on provinces
-    df_jhu = df_jhu.pivot_table(index=['country', 'date'], columns='province_state', margins=True, margins_name='total', values=['cases', 'deaths', 'recoveries'], aggfunc=np.sum).stack()
+    pivot_temp = df_jhu.pivot_table(index=['country', 'date'], columns='province_state', margins=True, margins_name='total', values=['cases', 'deaths', 'recoveries'], aggfunc=np.sum).stack()
+    df_jhu = pd.merge(df_jhu, pivot_temp, on=['country', 'date', 'deaths', 'cases', 'recoveries', 'province_state'], how='right')
+    df_jhu.set_index(['country', 'date'], inplace=True)
+    df_jhu.sort_index(inplace=True)
+    df_jhu.ffill(inplace=True)
 
-    df_jhu.reset_index()
-    #df_jhu.set_index(['country', 'date'], inplace=True)
-    # df_jhu.sort_index(inplace=True)
+    # Clean up after pivot
+    df_jhu.reset_index(inplace=True)
+    df_jhu.drop(df_jhu[df_jhu['country'] == 'total'].index, inplace=True)
 
-    
+    df_jhu.set_index(['country', 'date'], inplace=True)
+    df_jhu.sort_index(inplace=True)
+
     return df_jhu
+
