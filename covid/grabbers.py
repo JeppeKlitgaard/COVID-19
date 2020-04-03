@@ -1,5 +1,6 @@
 import wbdata
 import pandas as pd
+import numpy as np
 from .constants import DATA_URLS, JHU_RENAMED_COLUMNS, JHU_DATE_FILTER
 
 def grab_wbdata(indicators, countries='all', convert_date=False):
@@ -37,7 +38,12 @@ def grab_JHU():
     # Fill in NaN province_state with country index
     df_jhu['province_state'] = df_jhu.province_state.fillna(df_jhu.country)
 
-    df_jhu.set_index(['country', 'date'], inplace=True)
-    df_jhu.sort_index(inplace=True)
+    # Calculate country sums based on provinces
+    df_jhu = df_jhu.pivot_table(index=['country', 'date'], columns='province_state', margins=True, margins_name='total', values=['cases', 'deaths', 'recoveries'], aggfunc=np.sum).stack()
 
+    df_jhu.reset_index()
+    #df_jhu.set_index(['country', 'date'], inplace=True)
+    # df_jhu.sort_index(inplace=True)
+
+    
     return df_jhu
