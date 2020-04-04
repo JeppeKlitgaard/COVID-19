@@ -33,7 +33,6 @@ def grab_JHU():
     # Convert date into datetime type
     df_jhu.date = pd.to_datetime(df_jhu.date, format='%m/%d/%y')  # Weird American format
     df_jhu['day'] = (df_jhu.date - pd.to_datetime(df_jhu.date.iloc[0])).astype('timedelta64[D]')
-    df_jhu.day = df_jhu.day.apply(lambda day: int(round(day)))
 
     # Fill in NaN province_state with country index
     df_jhu['province_state'] = df_jhu.province_state.fillna(df_jhu.country)
