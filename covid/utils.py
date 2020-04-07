@@ -30,3 +30,17 @@ def get_x_day(df, label, n):
         return df.query(query_string).iloc[0]['day']
     except IndexError:
         return np.NaN
+
+
+def drop_y(df, suffix='_y', inplace=True):
+    """
+    Drops duplicate y-column.
+    See: https://stackoverflow.com/questions/19125091/pandas-merge-how-to-avoid-duplicating-columns
+
+    Use with suffixes=('', '_y')
+    """
+    to_drop = [x for x in df if x.endswith(suffix)]
+    if inplace:
+        return df.drop(to_drop, axis=1, inplace=True)
+    else:
+        return df.drop(to_drop, axis=1)
