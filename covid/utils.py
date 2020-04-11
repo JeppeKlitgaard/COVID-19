@@ -1,5 +1,6 @@
 import wbdata
 import numpy as np
+import pandas as pd
 
 
 def rchop(s, sub):
@@ -44,3 +45,9 @@ def drop_y(df, suffix='_y', inplace=True):
         return df.drop(to_drop, axis=1, inplace=True)
     else:
         return df.drop(to_drop, axis=1)
+
+
+def get_latest_valid(df, groupby_index='country'):
+    list_of_indexes = df.groupby(groupby_index).apply(pd.Series.first_valid_index).to_list()
+    mi = pd.MultiIndex.from_tuples(list_of_indexes)
+    return df.reindex(mi)

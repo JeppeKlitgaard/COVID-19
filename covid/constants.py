@@ -83,9 +83,35 @@ JHU_RENAMED_COLUMNS = {
 
 JHU_DATE_FILTER = r'^\d+/\d+/\d+$'
 
-POP_DF_RENAMED_COUNTRIES = {
+WB_DF_RENAMED_COUNTRIES = {
+    # No population data for:
+    # Diamond Princess
+    # Eritrea
+    # Holy See
+    # MS Zaandam
+    # Western Sahara
+    # Taiwan*
     'Iran, Islamic Rep.': 'Iran',
-    'United States': 'US'
+    'United States': 'US',
+    'Congo, Dem. Rep.': 'Congo (Kinshasa)',
+    'Congo, Rep.': 'Congo (Brazzaville)',
+    'Czech Republic': 'Czechia',
+    'Egypt, Arab Rep.': 'Egypt',
+    'Korea, Rep.': 'Korea, South',
+    'Russian Federation': 'Russia',
+    'Yemen, Rep.': 'Yemen',
+    'Bahamas, The': 'Bahamas',
+    'Brunei Darussalam': 'Brunei',
+    'Myanmar': 'Burma',
+    'Gambia, The': 'Gambia',
+    'Kyrgyz Republic': 'Kyrgyzstan',
+    'Lao PDR': 'Laos',
+    'St. Kitts and Nevis': 'Saint Kitts and Nevis',
+    'St. Lucia': 'Saint Lucia',
+    'St. Vincent and the Grenadines': 'Saint Vincent and the Grenadines',
+    'Slovak Republic': 'Slovakia',
+    'Taiwan, China': 'Taiwan*',
+    'Venezuela, RB': 'Venezuela',
 }
 
 COUNTIES = {
