@@ -1,6 +1,8 @@
 import wbdata
 import numpy as np
 import pandas as pd
+import pycountry
+import pycountry_convert
 
 
 def rchop(s, sub):
@@ -51,3 +53,23 @@ def get_latest_valid(df, groupby_index='country'):
     list_of_indexes = df.groupby(groupby_index).apply(pd.Series.first_valid_index).to_list()
     mi = pd.MultiIndex.from_tuples(list_of_indexes)
     return df.reindex(mi)
+
+
+def country_to_continent(country, verbose=False):
+    if verbose:
+        print(f'Processing country: {country}')
+    try:
+        country_obj = pycountry.countries.search_fuzzy(country)[0]
+    except (LookupError, AttributeError) as e:
+        print(f'Failed to process {country} due to error: {e}')
+        return 'Unknown'
+    
+    try:
+        continent_code = pycountry_convert.country_alpha2_to_continent_code(country_obj.alpha_2)
+    except KeyError as e:
+        print(f'Failed to process {country} due to error: {e}')
+        return 'Unknown'
+    
+    continent = pycountry_convert.convert_continent_code_to_continent_name(continent_code)
+    
+    return continent
