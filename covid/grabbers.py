@@ -9,6 +9,7 @@ def grab_wbdata(indicators, countries='all', convert_date=False):
     
     return df
 
+
 def grab_JHU():
     """Grab COVID-19 data from John Hopkin's data set."""
     LABELS = ('cases', 'deaths', 'recoveries')
